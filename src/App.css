@@ -44,16 +44,29 @@
 }
 
 .navBar {
-  background-color: #282c34;
   width: 100%;
+  background-color: #282c34;
   height: 60px;
+}
+
+.navBar__container {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
 }
 
+.navBar__container img {
+  width: 45px;
+  border-radius: 50%;
+  margin-left: 30px;
+}
+
 .navBar__title {
-  color: whitesmoke;
-  margin: 0 20px;
+  color: #f5f5f5;
+  margin: 0 20px 0 10px;
 }
 
 .navBar__menu {
@@ -66,7 +79,7 @@ a {
   padding: 10px;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 0.8em;
-  color: goldenrod;
+  color: #ffdb0f;
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
@@ -93,4 +106,14 @@ a:hover {
   position: absolute;
   visibility: hidden;
   opacity: 0;
+}
+
+.cartBox {
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.cartIcon {
+  color: #f5f5f5;
+  font-size: 1rem;
 }
