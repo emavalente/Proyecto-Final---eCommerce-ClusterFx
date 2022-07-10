@@ -1,14 +1,21 @@
 
 import './App.css';
-import NavBar from './components/NavBar';
-import ItemListContainer from './components/ItemListContainer';
+import NavBar from './components/NavBar/NavBar';
+import ItemListContainer from './components/ItemListContainer/ItemListContainer';
+import ItemCount from './components/ItemCount/ItemCount';
 
 
 function App() {
+  const handleCount = (count) => {
+    alert(`Agregaste ${count} Items al carrito`);
+  };
+
   return (
     <>
       <NavBar name={"ClusterFX"} />
-      <ItemListContainer greeting='Bienvenidos a la tienda ClusterFX' />
+      <ItemListContainer gretting='Bienvenidos a la tienda ClusterFX'>
+        <ItemCount stock={5} initial={1} onAdd={handleCount} />
+      </ItemListContainer>
     </>
   );
 };
