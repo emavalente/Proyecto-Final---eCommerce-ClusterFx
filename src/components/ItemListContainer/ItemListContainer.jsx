@@ -1,54 +1,41 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ItemList from "../ItemList/ItemList";
-
+import { getData } from "../../mocks/FakeApi";
 //Inicializo useEfect como un array vacio.
 
-// const randomError = () => {
-//   return Math.random() > 0.1;
-// };
-
 function ItemListContainer(props) {
-  //Inicializa el estado del componente
+  // ItemlistContainter recibe props de su padre App.
+
+  // Inicializa el estado del componente usando useState (Siempre al inicio de la lógica)
   const [productList, setProductList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errorPromise, setErrorPromises] = useState(false);
 
-  const products = [
-    { id: 340005523, title: "Nombre de Producto1", description: "Descripción del producto 1", precio: "$500", stock: 9 },
-    { id: 340005678, title: "Nombre de Producto2", description: "Descripción del producto 2", precio: "$800", stock: 6 },
-    { id: 340005381, title: "Nombre de Producto2", description: "Descripción del producto 2", precio: "$800", stock: 6 },
-    { id: 340005298, title: "Nombre de Producto2", description: "Descripción del producto 2", precio: "$800", stock: 6 },
-    { id: 340005169, title: "Nombre de Producto2", description: "Descripción del producto 2", precio: "$800", stock: 6 },
-  ];
-
-  //Uso useEffect para que la promise no intervenga en el renderizado del componente.
-  const getData = new Promise((res, rej) => {
-    //acciones que realizará la Promise...
-
-    let condition = true;
-
-    if (condition) {
-      //ejecutará el resolve
-      setTimeout(() => {
-        //resolvemos con un tiempo de espera
-        res(products);
-        console.warn("se resolvió la promise");
-      }, 3000);
-    } else {
-      //ejecutará el reject
-      rej("Algo salió mal");
-    }
-  });
-
-  //Tratamiento de la promise.
+  // Uso useEffect para que la promise no intervenga en el renderizado del componente.
+  // Tratamiento de la promise.
   useEffect(() => {
-    getData.then((res) => setProductList(res)).catch((err) => {});
+    console.warn("se ejecuta el useEffect");
+    setLoading(true);
+    getData
+      .then((res) => {
+        setProductList(res);
+      })
+      .catch((error) => {
+        console.error("Error en respuesta", error);
+        setErrorPromises(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  console.log(productList);
+  console.log(getData);
+  // console.log(productList);
 
   return (
     <div>
-      {props.children[0]}
-      <ItemList productList={productList} />
+      {props.children}
+      {errorPromise ? <h2>UPS!... Algo salió mal</h2> : loading ? <h2>Cargando Productos...</h2> : <ItemList productList={productList} />}
     </div>
   );
 }
