@@ -1,11 +1,13 @@
 import { React } from "react";
-import Item from "../Item/Item";
+import Item from "react";
 
-function ItemList({ items }) {
+function ItemList({ productList }) {
+  console.log(productList);
   return (
     <div>
-      {items.map((item) => (
-        <Item />
+      <h3>Lista de Productos</h3>
+      {productList.map((product) => (
+        <Item key={product.id} product={product}></Item>
       ))}
     </div>
   );
